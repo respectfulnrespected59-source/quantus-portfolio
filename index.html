@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Robert Hadden Jr. — AI/LLM Engineer & Automation Architect</title>
+<meta name="description" content="AI/LLM engineer shipping production multi-agent pipelines. Founder of Quantum Melanin Media. Claude Code SDK, Playwright, ffmpeg, MCP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0b;
+  --bg-2:#111114;
+  --surface:#16161a;
+  --line:#26262d;
+  --text:#ececea;
+  --text-dim:#8a8a90;
+  --gold:#d4a857;
+  --gold-2:#f0c977;
+  --accent:#7aa2ff;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Inter',-apple-system,system-ui,sans-serif;
+  --mono:'JetBrains Mono',Consolas,monospace;
+  --space-sec:clamp(4rem,3rem+5vw,9rem);
+  --max:1240px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{
+  font-family:var(--sans);
+  color:var(--text);
+  background:
+    radial-gradient(1200px 600px at 80% -10%,rgba(212,168,87,.08),transparent 60%),
+    radial-gradient(900px 500px at 10% 30%,rgba(122,162,255,.05),transparent 60%),
+    var(--bg);
+  line-height:1.55;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity:.5;mix-blend-mode:overlay;
+}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(1.2rem,3vw,2.4rem);position:relative;z-index:2}
+
+header.top{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,10,11,.78);
+  backdrop-filter:saturate(150%) blur(14px);
+  -webkit-backdrop-filter:saturate(150%) blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0;font-family:var(--mono);font-size:.82rem}
+.brand{display:flex;align-items:center;gap:.6rem;color:var(--text);text-decoration:none;letter-spacing:.04em}
+.brand .dot{width:.55rem;height:.55rem;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.nav ul{display:flex;gap:1.6rem;list-style:none}
+.nav a{color:var(--text-dim);text-decoration:none;transition:color .2s}
+.nav a:hover{color:var(--gold-2)}
+@media (max-width:640px){.nav ul{display:none}}
+
+.hero{padding:clamp(4rem,8vw,9rem) 0 clamp(3rem,6vw,6rem);position:relative}
+.eyebrow{font-family:var(--mono);font-size:.78rem;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.4rem;display:flex;align-items:center;gap:.7rem}
+.eyebrow .bar{width:1.8rem;height:1px;background:var(--gold);opacity:.7}
+h1.display{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(2.6rem,7.5vw,6.4rem);
+  line-height:.96;
+  letter-spacing:-.02em;
+  margin-bottom:1.6rem;
+}
+h1.display em{font-style:italic;font-weight:300;color:var(--gold-2)}
+h1.display .stack{display:block}
+.lede{
+  font-size:clamp(1.05rem,1.4vw,1.25rem);
+  color:#cfcfca;
+  max-width:46rem;
+  line-height:1.6;
+}
+.lede strong{color:#fff;font-weight:500}
+.hero-meta{
+  display:flex;flex-wrap:wrap;gap:1.4rem 2.2rem;margin-top:2.6rem;
+  font-family:var(--mono);font-size:.82rem;color:var(--text-dim);
+}
+.hero-meta span{display:flex;align-items:center;gap:.5rem}
+.hero-meta span::before{content:"";width:.4rem;height:.4rem;background:var(--gold);border-radius:50%;display:inline-block}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.4rem}
+.btn{
+  display:inline-flex;align-items:center;gap:.55rem;
+  padding:.9rem 1.4rem;border-radius:.4rem;
+  font-family:var(--mono);font-size:.82rem;letter-spacing:.04em;
+  text-decoration:none;transition:transform .15s,background .15s,border-color .15s;
+}
+.btn.primary{background:var(--gold);color:#1a1304;border:1px solid var(--gold)}
+.btn.primary:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--gold);color:var(--gold-2)}
+.btn .arrow{transition:transform .2s}
+.btn:hover .arrow{transform:translate(3px,-3px)}
+
+section{padding:var(--space-sec) 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:3rem}
+.sec-num{font-family:var(--mono);color:var(--gold);font-size:.78rem;letter-spacing:.16em}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:-.01em;line-height:1.1}
+h2 em{font-style:italic;color:var(--gold-2);font-weight:300}
+.sec-sub{color:var(--text-dim);max-width:34rem;font-size:.95rem}
+
+.cases{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem}
+.case{
+  background:linear-gradient(180deg,var(--surface) 0%,var(--bg-2) 100%);
+  border:1px solid var(--line);border-radius:.7rem;
+  padding:1.6rem 1.6rem 1.4rem;
+  position:relative;overflow:hidden;
+  transition:border-color .2s,transform .2s;
+  display:flex;flex-direction:column;
+}
+.case:hover{border-color:#3a3a44;transform:translateY(-2px)}
+.case::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(400px 200px at 100% 0%,rgba(212,168,87,.07),transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.case:hover::after{opacity:1}
+.case .tag{font-family:var(--mono);font-size:.7rem;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+.case h3{font-family:var(--serif);font-weight:500;font-size:1.45rem;letter-spacing:-.01em;line-height:1.15;margin-bottom:.65rem}
+.case p{color:#bcbcb8;font-size:.92rem;margin-bottom:1.1rem;line-height:1.55}
+.case .stack-pills{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.1rem}
+.case .stack-pills span{font-family:var(--mono);font-size:.7rem;padding:.18rem .55rem;background:#1d1d22;color:#bdbdc2;border:1px solid var(--line);border-radius:.3rem}
+.case .meta{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.74rem;color:var(--text-dim);border-top:1px solid var(--line);padding-top:.9rem;margin-top:auto}
+.case .meta a{color:var(--gold-2);text-decoration:none}
+.case .meta a:hover{color:var(--gold)}
+.case.span-6{grid-column:span 6}
+.case.span-4{grid-column:span 4}
+.case.span-3{grid-column:span 3}
+.case.span-2{grid-column:span 2}
+.case-hero{
+  display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center;
+  padding:2.2rem;
+}
+.case-hero .video-frame{
+  position:relative;aspect-ratio:16/9;border-radius:.5rem;overflow:hidden;
+  background:#000;border:1px solid var(--line);
+}
+.case-hero iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media (max-width:900px){
+  .cases{grid-template-columns:1fr}
+  .case.span-6,.case.span-4,.case.span-3,.case.span-2{grid-column:span 1}
+  .case-hero{grid-template-columns:1fr;padding:1.6rem}
+}
+
+.stack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.4rem}
+.stack-col h4{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--line)}
+.stack-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.stack-col li{color:#c8c8c4;font-size:.92rem;font-family:var(--mono)}
+.stack-col li::before{content:"// ";color:var(--gold);opacity:.6}
+
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:.7rem;overflow:hidden;background:var(--bg-2)}
+.metric{padding:1.8rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metric:nth-child(4n){border-right:0}
+.metric:nth-last-child(-n+4){border-bottom:0}
+.metric .num{font-family:var(--serif);font-size:clamp(2rem,3.4vw,2.8rem);color:var(--gold-2);font-weight:400;letter-spacing:-.02em;line-height:1}
+.metric .label{font-family:var(--mono);font-size:.74rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.12em;margin-top:.7rem}
+@media (max-width:780px){
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .metric:nth-child(2n){border-right:0}
+  .metric:nth-child(4n){border-right:1px solid var(--line)}
+  .metric:nth-last-child(-n+2){border-bottom:0}
+}
+
+.contact{
+  display:grid;grid-template-columns:1.2fr .8fr;gap:2.5rem;
+  background:linear-gradient(180deg,var(--surface),#0e0e11);
+  border:1px solid var(--line);border-radius:.9rem;
+  padding:clamp(2rem,5vw,3.5rem);
+  position:relative;overflow:hidden;
+}
+.contact::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(600px 300px at 90% 100%,rgba(212,168,87,.1),transparent 65%);
+  pointer-events:none;
+}
+.contact h2{position:relative;margin-bottom:1.2rem}
+.contact p{color:#c8c8c4;max-width:32rem;position:relative;margin-bottom:1.8rem}
+.contact-list{font-family:var(--mono);font-size:.9rem;display:flex;flex-direction:column;gap:.7rem;position:relative}
+.contact-list a{color:var(--gold-2);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+.contact-list a:hover{border-color:var(--gold-2)}
+.contact-list .lbl{display:block;color:var(--text-dim);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.15rem}
+@media (max-width:780px){.contact{grid-template-columns:1fr}}
+
+footer{padding:2.4rem 0 3rem;border-top:1px solid var(--line);font-family:var(--mono);font-size:.78rem;color:var(--text-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+footer a{color:var(--gold-2);text-decoration:none}
+
+@media (prefers-reduced-motion:no-preference){
+  .case,h1.display,.lede,.metric{animation:rise .8s cubic-bezier(.16,1,.3,1) both}
+  h1.display{animation-delay:.05s}
+  .lede{animation-delay:.15s}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <nav class="nav" aria-label="Primary">
+      <a href="#" class="brand"><span class="dot"></span>ROBERT HADDEN JR.</a>
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="resume.pdf">Résumé</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" style="border-top:0;padding-top:clamp(3rem,6vw,6rem)">
+    <div class="eyebrow"><span class="bar"></span>AI/LLM ENGINEER · AUTOMATION ARCHITECT</div>
+    <h1 class="display">
+      <span class="stack">I ship production</span>
+      <span class="stack"><em>multi-agent</em> pipelines</span>
+      <span class="stack">that pay rent.</span>
+    </h1>
+    <p class="lede">
+      <strong>Sole operator of a vertically-integrated AI media studio.</strong>
+      I run Claude Code SDK, MCP servers, hooks orchestration, and <strong>130+ custom skills</strong> in active rotation —
+      driving Python + Playwright + ffmpeg pipelines that build, encode, caption, and ship long-form video to YouTube,
+      40+ SKUs to Gumroad, and a coordinated self-hosted SaaS stack (n8n, Supabase, Ghost, Coolify) on RunPod cloud GPUs.
+    </p>
+    <div class="hero-meta">
+      <span>Remote · US</span>
+      <span>Available for high-leverage roles</span>
+      <span>Founder, Quantum Melanin Media</span>
+    </div>
+    <div class="cta-row">
+      <a href="#work" class="btn primary">See the work <span class="arrow">↗</span></a>
+      <a href="resume.pdf" class="btn ghost">Download résumé (PDF) <span class="arrow">↓</span></a>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">— 01 / SELECTED WORK</div>
+        <h2>Shipped, <em>in production</em>, today.</h2>
+      </div>
+      <div class="sec-sub">Each one is a live deliverable with users, code, or revenue attached. No mockups, no demos that died in dev.</div>
+    </div>
+
+    <div class="cases">
+
+      <article class="case span-6 case-hero">
+        <div>
+          <div class="tag">★ FEATURED · YOUTUBE PIPELINE</div>
+          <h3>QMM Lions Podcast — The Stolen Quantum Engine</h3>
+          <p>16-minute long-form video shipped via my Python+Playwright YouTube uploader. Higgsfield Wan&nbsp;2.7 lip-synced opening hook + NotebookLM Deep Dive podcast bed + custom ffmpeg concat pipeline. Built, encoded, captioned, and posted autonomously.</p>
+          <div class="stack-pills">
+            <span>Python</span><span>Playwright</span><span>ffmpeg</span><span>YouTube API v3</span><span>OAuth</span><span>Higgsfield</span>
+          </div>
+          <div class="meta">
+            <a href="https://youtu.be/b9MmcoZ5c9E" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+            <span>16:11 · 1584×672 · h264+aac</span>
+          </div>
+        </div>
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/b9MmcoZ5c9E" title="QMM Lions Podcast" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </article>
+
+      <article class="case span-3">
+        <div class="tag">⚙ OPEN-SOURCE TOOL</div>
+        <h3>KAREN</h3>
+        <p>Python CLI that detects manuscript structural typography damage — orphan fragments, false-bold sentences, buried headings, merge bugs — across DOCX / PDF / Markdown. Production-tested on QMM's own inventory.</p>
+        <div class="stack-pills">
+          <span>Python</span><span>docx</span><span>PyMuPDF</span><span>CLI</span>
+        </div>
+        <div class="meta">
+          <a href="https://github.com/respectfulnrespected59-source/karen" target="_blank" rel="noopener">View on GitHub ↗</a>
+          <span>MIT · v1.1.2</span>
+        </div>
+      </article>
+
+      <article class="case span-3">
+        <div class="tag">⚙ AGENT ARCHITECTURE</div>
+        <h3>QMM Stack</h3>
+        <p>Four-agent digital company architecture for Claude Code. Quantus (CEO), Quanti-Code (CTO), Quanta-Clause (COO/open-source), Quant-Ology (theorist) — coordinated via skills, hooks, rules, persistent memory.</p>
+        <div class="stack-pills">
+          <span>Claude Code SDK</span><span>Agent SDK</span><span>MCP</span><span>Hooks</span>
+        </div>
+        <div class="meta">
+          <a href="https://github.com/respectfulnrespected59-source/qmm-stack" target="_blank" rel="noopener">View on GitHub ↗</a>
+          <span>4 agents · 130+ skills</span>
+        </div>
+      </article>
+
+      <article class="case span-2">
+        <div class="tag">⚙ AUTOMATION</div>
+        <h3>quantus-autoposter</h3>
+        <p>Python + Playwright pipeline that builds, encodes, captions, and uploads multi-format ads to YouTube + X. OAuth, ffmpeg, MoviePy, resilient retry logic.</p>
+        <div class="stack-pills">
+          <span>Python</span><span>Playwright</span><span>MoviePy</span>
+        </div>
+        <div class="meta"><span>Private repo</span><span>Daily run</span></div>
+      </article>
+
+      <article class="case span-2">
+        <div class="tag">⚙ INFRASTRUCTURE</div>
+        <h3>Self-Hosted SaaS Stack</h3>
+        <p>Coordinated forks of Ghost, n8n, Supabase, Coolify, Penpot, AppFlowy, Listmonk, Plausible, Cal.com — branded and prepped for unified self-host deployment.</p>
+        <div class="stack-pills">
+          <span>Docker</span><span>Coolify</span><span>n8n</span>
+        </div>
+        <div class="meta"><span>9 services</span><span>Deployable</span></div>
+      </article>
+
+      <article class="case span-2">
+        <div class="tag">⚙ PRODUCT</div>
+        <h3>Quantum Melanin Media</h3>
+        <p>40+ SKUs shipped: books, comics, AI tools, courses. Cover art batch-gen via PIL + AI image gen at zero per-unit cost. Bloodline novella live at $9.99.</p>
+        <div class="stack-pills">
+          <span>Gumroad</span><span>PIL</span><span>Playwright</span>
+        </div>
+        <div class="meta">
+          <a href="https://quantummelaninmedia.gumroad.com" target="_blank" rel="noopener">Shop the catalog ↗</a>
+          <span>40+ SKUs</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">— 02 / RECEIPTS</div>
+        <h2>The math of <em>one operator</em>.</h2>
+      </div>
+      <div class="sec-sub">What gets done when Claude Code is your team and you don't sleep on receipts.</div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="num">130+</div><div class="label">Custom Claude Skills</div></div>
+      <div class="metric"><div class="num">40+</div><div class="label">Shipped SKUs on Gumroad</div></div>
+      <div class="metric"><div class="num">9</div><div class="label">Self-hosted services architected</div></div>
+      <div class="metric"><div class="num">$25/mo</div><div class="label">Cloud GPU rig (RunPod RTX 4090/5090)</div></div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">— 03 / THE STACK</div>
+        <h2>Tools I run, <em>daily</em>.</h2>
+      </div>
+      <div class="sec-sub">Not "familiar with." Not "interested in." Actually shipping with — production traffic, real revenue, real bugs fixed at 2 AM.</div>
+    </div>
+
+    <div class="stack-grid">
+      <div class="stack-col">
+        <h4>AI / LLM</h4>
+        <ul>
+          <li>Claude Code SDK</li>
+          <li>Anthropic Agent SDK</li>
+          <li>MCP server authoring</li>
+          <li>Hooks (Pre/Post/Stop)</li>
+          <li>Multi-agent orchestration</li>
+          <li>Prompt engineering</li>
+          <li>Model selection</li>
+        </ul>
+      </div>
+      <div class="stack-col">
+        <h4>Languages</h4>
+        <ul>
+          <li>Python</li>
+          <li>TypeScript / JS</li>
+          <li>Bash · PowerShell</li>
+          <li>Go (reading)</li>
+          <li>Rust (reading)</li>
+          <li>Dart (reading)</li>
+        </ul>
+      </div>
+      <div class="stack-col">
+        <h4>Automation</h4>
+        <ul>
+          <li>Playwright</li>
+          <li>ffmpeg orchestration</li>
+          <li>MoviePy</li>
+          <li>Remotion</li>
+          <li>Manim</li>
+          <li>DaVinci Resolve scripting</li>
+        </ul>
+      </div>
+      <div class="stack-col">
+        <h4>Infrastructure</h4>
+        <ul>
+          <li>n8n · Supabase · Ghost</li>
+          <li>Coolify (PaaS)</li>
+          <li>Penpot · AppFlowy</li>
+          <li>Listmonk · Plausible</li>
+          <li>RunPod cloud GPU</li>
+          <li>ComfyUI · Ollama · Qdrant</li>
+        </ul>
+      </div>
+      <div class="stack-col">
+        <h4>AI Media</h4>
+        <ul>
+          <li>Kling 2.5 / Omni / Avatar 2</li>
+          <li>Higgsfield (Wan 2.7, NB2)</li>
+          <li>Hailuo · Seedance</li>
+          <li>Suno · ElevenLabs</li>
+          <li>F5-TTS · Kokoro · XTTS-v2</li>
+        </ul>
+      </div>
+      <div class="stack-col">
+        <h4>Security-Adjacent</h4>
+        <ul>
+          <li>OWASP Top 10</li>
+          <li>Secret management discipline</li>
+          <li>security-reviewer agent</li>
+          <li>Playwright stealth patterns</li>
+          <li>MCP boundary hardening</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">— 04 / GET IN TOUCH</div>
+        <h2>Building something <em>that needs an operator?</em></h2>
+      </div>
+    </div>
+    <div class="contact">
+      <div>
+        <h2 style="font-size:clamp(1.6rem,2.6vw,2.1rem)">Let's talk.</h2>
+        <p>I'm open to high-leverage roles where Claude Code + my pipeline stack carries the work. Cyber, AI, automation, DevSecOps, browser-RPA — if the role pays remote and ships fast, send it.</p>
+      </div>
+      <div class="contact-list">
+        <div>
+          <span class="lbl">Email</span>
+          <a href="mailto:respectfulnrespected59@gmail.com">respectfulnrespected59@gmail.com</a>
+        </div>
+        <div>
+          <span class="lbl">GitHub</span>
+          <a href="https://github.com/respectfulnrespected59-source" target="_blank" rel="noopener">@respectfulnrespected59-source</a>
+        </div>
+        <div>
+          <span class="lbl">Studio</span>
+          <a href="https://quantummelaninmedia.gumroad.com" target="_blank" rel="noopener">quantummelaninmedia.gumroad.com</a>
+        </div>
+        <div>
+          <span class="lbl">Résumé</span>
+          <a href="resume.pdf">resume.pdf</a> · <a href="resume.docx">resume.docx</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>© 2026 Robert Hadden Jr. · Sole operator, Quantum Melanin Media</div>
+  <div>Built with HTML, CSS, and stubbornness.</div>
+</footer>
+
+</body>
+</html>
